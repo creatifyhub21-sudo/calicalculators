@@ -1,6 +1,7 @@
-import React, { useId } from 'react';
+import React from 'react';
 
 interface InputProps {
+  id?: string;
   label: string;
   type?: string;
   value: string | number;
@@ -15,6 +16,7 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({
+  id,
   label,
   type = 'text',
   value,
@@ -27,13 +29,15 @@ const Input: React.FC<InputProps> = ({
   disabled = false,
   inputClassName = '',
 }) => {
-  const generatedId = useId();
-  const inputId = `input-${generatedId}`;
+  const safeLabel = label.replace(/\s+/g, '-').toLowerCase();
+  const inputId = id || `input-${safeLabel}`;
   const isNumeric = type === 'number';
 
   return (
     <div className={`min-w-0 flex flex-col space-y-2 ${className}`}>
-      <label htmlFor={inputId} className="text-sm font-semibold text-slate-700">{label}</label>
+      <label htmlFor={inputId} className="text-sm font-semibold text-slate-700">
+        {label}
+      </label>
       <input
         id={inputId}
         type={type}
