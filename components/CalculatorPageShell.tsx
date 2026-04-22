@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from './Navbar';
@@ -54,7 +54,7 @@ export default function CalculatorPageShell({
       { '@type': 'ListItem', position: 3, name: title, item: url },
     ],
   };
-  useEffect(() => {
+  React.useEffect(() => {
     const handleAutoScroll = (event: Event) => {
       const customEvent = event as CustomEvent<{ targetId?: string }>;
       const targetId = customEvent.detail?.targetId || 'calculator-result-content';
