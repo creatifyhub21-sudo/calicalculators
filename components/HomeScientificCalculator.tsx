@@ -5,7 +5,7 @@ type AngleMode = 'deg' | 'rad';
 export default function HomeScientificCalculator() {
   const [expression, setExpression] = React.useState('');
   const [display, setDisplay] = React.useState('0');
-  const [angleMode, setAngleMode] = React.useState<AngleMode>('deg');
+  const [angleMode, setAngleMode] = React.useState('deg' as AngleMode);
   const [lastAnswer, setLastAnswer] = React.useState('0');
   const [memory, setMemory] = React.useState(0);
   const [error, setError] = React.useState('');
