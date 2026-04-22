@@ -1,13 +1,11 @@
 import React, { useState, useMemo } from 'react';
 
 export default function Four01kCalculator() {
-  const [annualContribution, setAnnualContribution] = useState<number>(0);
-  const [annualReturn, setAnnualReturn] = useState<number>(0);
-  const [years, setYears] = useState<number>(0);
-
-  // FIXED: typed state with default value
-  const [result, setResult] = useState<{ finalValue: number } | null>(null);
-  const [error, setError] = useState<string>('');
+  const [annualContribution, setAnnualContribution] = useState(0);
+  const [annualReturn, setAnnualReturn] = useState(0);
+  const [years, setYears] = useState(0);
+  const [result, setResult] = useState(null as { finalValue: number } | null);
+  const [error, setError] = useState('');
 
   const parsed = useMemo(() => {
     return {
