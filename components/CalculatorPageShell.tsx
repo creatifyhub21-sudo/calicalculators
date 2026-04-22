@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from './Navbar';
@@ -54,18 +54,19 @@ export default function CalculatorPageShell({
       { '@type': 'ListItem', position: 3, name: title, item: url },
     ],
   };
-  React.useEffect(() => {
-    const handleAutoScroll = (event: Event) => {
-      const customEvent = event as CustomEvent<{ targetId?: string }>;
-      const targetId = customEvent.detail?.targetId || 'calculator-result-content';
-      const target = document.getElementById(targetId);
-      if (!target) return;
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+ if (typeof window !== 'undefined') {
+  window.addEventListener('calculator:scrollToResult', ((event: Event) => {
+    const customEvent = event as CustomEvent<{ targetId?: string }>;
+    const targetId = customEvent.detail?.targetId || 'calculator-result-content';
+    const target = document.getElementById(targetId);
+    if (!target) return;
 
-    window.addEventListener('calculator:scrollToResult', handleAutoScroll as EventListener);
-    return () => window.removeEventListener('calculator:scrollToResult', handleAutoScroll as EventListener);
-  }, []);
+    target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }) as EventListener);
+}
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
