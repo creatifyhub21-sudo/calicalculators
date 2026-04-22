@@ -26,11 +26,19 @@ function formatDate(date: Date) {
 
 export default function AgeCalculator() {
   const [birthDate, setBirthDate] = useState('');
-  const [refDate, setRefDate] = useState('');
-  const [result, setResult] = useState<{ years: number; months: number; days: number } | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [calcSteps, setCalcSteps] = useState<string[]>([]);
-
+const [refDate, setRefDate] = useState('');
+const [result, setResult] = useState(
+  null as
+    | {
+        years: number;
+        months: number;
+        days: number;
+        totalDays: number;
+      }
+    | null
+);
+const [error, setError] = useState(null as string | null);
+const [calcSteps, setCalcSteps] = useState([] as string[]);
   const details = useMemo(() => {
     if (!result || !birthDate) return null;
     const birth = new Date(birthDate);
