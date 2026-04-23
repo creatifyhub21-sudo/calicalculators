@@ -1,68 +1,61 @@
-import * as React from 'react';
-
-type AngleMode = 'deg' | 'rad';
+'use client';
+import React, { useState } from 'react';
 
 export default function HomeScientificCalculator() {
-  const [expression, setExpression] = React.useState('');
-  const [display, setDisplay] = React.useState('0');
-  const [angleMode, setAngleMode] = React.useState('deg' as AngleMode);
-  const [lastAnswer, setLastAnswer] = React.useState('0');
-  const [memory, setMemory] = React.useState(0);
-  const [error, setError] = React.useState('');
+  const [input, setInput] = useState('');
 
-  const handleInput = (value: string) => {
-    setExpression((prev) => prev + value);
+  const handleClick = (value: string) => {
+    setInput((prev) => prev + value);
   };
 
-  const handleClear = () => {
-    setExpression('');
-    setDisplay('0');
-    setError('');
-  };
+  const clear = () => setInput('');
 
-  const handleCalculate = () => {
+  const calculate = () => {
     try {
-      // ⚠️ simple eval for now (we improve later)
-      const result = eval(expression || '0');
-      setDisplay(String(result));
-      setLastAnswer(String(result));
-      setError('');
+      const result = eval(input);
+      setInput(result.toString());
     } catch {
-      setError('Invalid Expression');
+      setInput('Error');
     }
   };
 
+  const buttons = [
+    '7','8','9','/',
+    '4','5','6','*',
+    '1','2','3','-',
+    '0','.','=','+'
+  ];
+
   return (
-    <div className="p-4 rounded-xl border bg-white shadow-md">
-      <div className="mb-3 text-right text-xl font-semibold">
-        {error ? error : display}
+    <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-sm mx-auto">
+      
+      {/* Display */}
+      <div className="bg-slate-100 text-right text-2xl p-4 rounded-xl mb-4">
+        {input || '0'}
       </div>
 
-      <div className="grid grid-cols-4 gap-2">
-        <button onClick={() => handleInput('1')}>1</button>
-        <button onClick={() => handleInput('2')}>2</button>
-        <button onClick={() => handleInput('3')}>3</button>
-        <button onClick={() => handleInput('+')}>+</button>
-
-        <button onClick={() => handleInput('4')}>4</button>
-        <button onClick={() => handleInput('5')}>5</button>
-        <button onClick={() => handleInput('6')}>6</button>
-        <button onClick={() => handleInput('-')}>-</button>
-
-        <button onClick={() => handleInput('7')}>7</button>
-        <button onClick={() => handleInput('8')}>8</button>
-        <button onClick={() => handleInput('9')}>9</button>
-        <button onClick={() => handleInput('*')}>×</button>
-
-        <button onClick={() => handleInput('0')}>0</button>
-        <button onClick={() => handleInput('.')}>.</button>
-        <button onClick={handleCalculate}>=</button>
-        <button onClick={() => handleInput('/')}>÷</button>
-
-        <button onClick={handleClear} className="col-span-4 bg-red-100">
-          Clear
-        </button>
+      {/* Buttons */}
+      <div className="grid grid-cols-4 gap-3">
+        {buttons.map((btn, i) => (
+          <button
+            key={i}
+            onClick={() =>
+              btn === '=' ? calculate() : handleClick(btn)
+            }
+            className="bg-slate-200 hover:bg-blue-500 hover:text-white transition p-4 rounded-xl text-lg font-semibold"
+          >
+            {btn}
+          </button>
+        ))}
       </div>
+
+      {/* Clear Button */}
+      <button
+        onClick={clear}
+        className="mt-4 w-full bg-red-400 hover:bg-red-500 text-white p-3 rounded-xl font-semibold"
+      >
+        Clear
+      </button>
     </div>
   );
 }
