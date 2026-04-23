@@ -29,8 +29,11 @@ export default function HomeScientificCalculator() {
     });
   };
 
-  const toRadians = (value: number) => {
-    return angleMode === 'Deg' ? (value * Math.PI) / 180 : value;
+  const toRadiansExpression = (valueExpr: string) => {
+    if (angleMode === 'Deg') {
+      return `((${valueExpr})*Math.PI/180)`;
+    }
+    return `(${valueExpr})`;
   };
 
   const safeEval = (raw: string) => {
@@ -39,7 +42,6 @@ export default function HomeScientificCalculator() {
     expr = expr.replace(/÷/g, '/').replace(/×/g, '*');
     expr = expr.replace(/π/g, 'Math.PI');
     expr = expr.replace(/\be\b/g, 'Math.E');
-
     expr = expr.replace(/sqrt\(/g, 'Math.sqrt(');
     expr = expr.replace(/ln\(/g, 'Math.log(');
     expr = expr.replace(/log\(/g, 'Math.log10(');
@@ -49,15 +51,7 @@ export default function HomeScientificCalculator() {
     expr = expr.replace(/tan\(([^()]+)\)/g, (_, a) => `Math.tan(${toRadiansExpression(a)})`);
 
     expr = expr.replace(/\^/g, '**');
-
     return Function(`"use strict"; return (${expr})`)();
-  };
-
-  const toRadiansExpression = (valueExpr: string) => {
-    if (angleMode === 'Deg') {
-      return `((${valueExpr})*Math.PI/180)`;
-    }
-    return `(${valueExpr})`;
   };
 
   const calculate = () => {
@@ -77,22 +71,22 @@ export default function HomeScientificCalculator() {
   };
 
   const buttonClass =
-    'h-14 rounded-xl border border-slate-300 bg-white text-slate-900 text-xl font-semibold shadow-sm hover:bg-slate-100 transition';
+    'h-10 rounded-xl border border-slate-300 bg-white text-slate-900 text-base font-semibold shadow-sm hover:bg-slate-100 transition';
   const actionClass =
-    'h-14 rounded-xl border border-blue-300 bg-blue-100 text-blue-900 text-xl font-semibold shadow-sm hover:bg-blue-200 transition';
+    'h-10 rounded-xl border border-blue-300 bg-blue-100 text-blue-900 text-base font-semibold shadow-sm hover:bg-blue-200 transition';
   const equalClass =
-    'h-14 rounded-xl border border-blue-700 bg-blue-700 text-white text-xl font-semibold shadow-sm hover:bg-blue-800 transition';
+    'h-10 rounded-xl border border-blue-700 bg-blue-700 text-white text-base font-semibold shadow-sm hover:bg-blue-800 transition';
 
   return (
-    <div className="w-full max-w-2xl rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-xl">
-      <div className="mb-4 rounded-2xl bg-blue-900 px-4 py-4 text-right text-white shadow-inner">
-        <div className="text-sm opacity-80 min-h-5">{expression || ' '}</div>
-        <div className="text-4xl font-bold break-all">{display}</div>
+    <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-lg">
+      <div className="mb-3 rounded-2xl bg-blue-900 px-4 py-3 text-right text-white shadow-inner">
+        <div className="text-xs opacity-80 min-h-4">{expression || ' '}</div>
+        <div className="text-2xl font-bold break-all">{display}</div>
       </div>
 
-      <div className="mb-4 flex items-center justify-between text-sm font-medium text-slate-700">
-        <div className="flex items-center gap-4">
-          <label className="flex items-center gap-2">
+      <div className="mb-3 flex items-center justify-between text-xs font-medium text-slate-700">
+        <div className="flex items-center gap-3">
+          <label className="flex items-center gap-1">
             <input
               type="radio"
               checked={angleMode === 'Deg'}
@@ -100,7 +94,7 @@ export default function HomeScientificCalculator() {
             />
             Deg
           </label>
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-1">
             <input
               type="radio"
               checked={angleMode === 'Rad'}
@@ -114,7 +108,7 @@ export default function HomeScientificCalculator() {
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-3">
+      <div className="grid grid-cols-5 gap-2">
         <button className={buttonClass} onClick={() => append('sin(')}>sin</button>
         <button className={buttonClass} onClick={() => append('cos(')}>cos</button>
         <button className={buttonClass} onClick={() => append('tan(')}>tan</button>
@@ -137,7 +131,15 @@ export default function HomeScientificCalculator() {
         <button className={buttonClass} onClick={() => append('5')}>5</button>
         <button className={buttonClass} onClick={() => append('6')}>6</button>
         <button className={buttonClass} onClick={() => append('×')}>×</button>
-        <button className={actionClass} onClick={() => setDisplay(lastAnswer) || setExpression(lastAnswer)}>Ans</button>
+        <button
+          className={actionClass}
+          onClick={() => {
+            setExpression(lastAnswer);
+            setDisplay(lastAnswer);
+          }}
+        >
+          Ans
+        </button>
 
         <button className={buttonClass} onClick={() => append('1')}>1</button>
         <button className={buttonClass} onClick={() => append('2')}>2</button>
@@ -171,18 +173,21 @@ export default function HomeScientificCalculator() {
         <button className={actionClass} onClick={() => append('^')}>xʸ</button>
         <button className={actionClass} onClick={() => append('%')}>%</button>
         <button className={equalClass} onClick={calculate}>=</button>
-        <button className={actionClass} onClick={() => {
-          const mem = String(memory);
-          setExpression(mem);
-          setDisplay(mem);
-        }}>
+        <button
+          className={actionClass}
+          onClick={() => {
+            const mem = String(memory);
+            setExpression(mem);
+            setDisplay(mem);
+          }}
+        >
           MR
         </button>
       </div>
 
       <button
         onClick={clearAll}
-        className="mt-4 h-14 w-full rounded-xl border border-red-300 bg-red-100 text-red-800 text-xl font-semibold hover:bg-red-200 transition"
+        className="mt-3 h-10 w-full rounded-xl border border-red-300 bg-red-100 text-red-800 text-base font-semibold hover:bg-red-200 transition"
       >
         Clear
       </button>
