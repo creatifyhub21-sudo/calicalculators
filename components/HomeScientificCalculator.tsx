@@ -13,7 +13,7 @@ export default function HomeScientificCalculator() {
 
   const append = (value: string) => {
     setExpression((prev) => prev + value);
-    setDisplay((prev) => (prev === '0' ? value : prev + value));
+    setDisplay((prev) => (prev === '0' || prev === 'Error' ? value : prev + value));
   };
 
   const clearAll = () => {
@@ -24,16 +24,21 @@ export default function HomeScientificCalculator() {
   const backspace = () => {
     setExpression((prev) => prev.slice(0, -1));
     setDisplay((prev) => {
+      if (prev === 'Error') return '0';
       const next = prev.slice(0, -1);
       return next || '0';
     });
   };
 
   const toRadiansExpression = (valueExpr: string) => {
-    if (angleMode === 'Deg') {
-      return `((${valueExpr})*Math.PI/180)`;
-    }
-    return `(${valueExpr})`;
+    return angleMode === 'Deg'
+      ? `((${valueExpr})*Math.PI/180)`
+      : `(${valueExpr})`;
+  };
+
+  const transformPercent = (expr: string) => {
+    // turns 58% into (58/100)
+    return expr.replace(/(\d+(\.\d+)?)%/g, '($1/100)');
   };
 
   const safeEval = (raw: string) => {
@@ -42,6 +47,9 @@ export default function HomeScientificCalculator() {
     expr = expr.replace(/÷/g, '/').replace(/×/g, '*');
     expr = expr.replace(/π/g, 'Math.PI');
     expr = expr.replace(/\be\b/g, 'Math.E');
+
+    expr = transformPercent(expr);
+
     expr = expr.replace(/sqrt\(/g, 'Math.sqrt(');
     expr = expr.replace(/ln\(/g, 'Math.log(');
     expr = expr.replace(/log\(/g, 'Math.log10(');
@@ -51,6 +59,7 @@ export default function HomeScientificCalculator() {
     expr = expr.replace(/tan\(([^()]+)\)/g, (_, a) => `Math.tan(${toRadiansExpression(a)})`);
 
     expr = expr.replace(/\^/g, '**');
+
     return Function(`"use strict"; return (${expr})`)();
   };
 
@@ -80,7 +89,7 @@ export default function HomeScientificCalculator() {
   return (
     <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-lg">
       <div className="mb-3 rounded-2xl bg-blue-900 px-4 py-3 text-right text-white shadow-inner">
-        <div className="text-xs opacity-80 min-h-4">{expression || ' '}</div>
+        <div className="text-xs opacity-80 min-h-4 break-all">{expression || ' '}</div>
         <div className="text-2xl font-bold break-all">{display}</div>
       </div>
 
@@ -103,9 +112,7 @@ export default function HomeScientificCalculator() {
             Rad
           </label>
         </div>
-        <div>
-          {angleMode} mode • Memory {memory}
-        </div>
+        <div>{angleMode} mode • Memory {memory}</div>
       </div>
 
       <div className="grid grid-cols-5 gap-2">
@@ -149,7 +156,7 @@ export default function HomeScientificCalculator() {
           className={actionClass}
           onClick={() => {
             const current = Number(display || 0);
-            setMemory((m) => m + current);
+            if (!Number.isNaN(current)) setMemory((m) => m + current);
           }}
         >
           M+
@@ -163,7 +170,7 @@ export default function HomeScientificCalculator() {
           className={actionClass}
           onClick={() => {
             const current = Number(display || 0);
-            setMemory((m) => m - current);
+            if (!Number.isNaN(current)) setMemory((m) => m - current);
           }}
         >
           M-
