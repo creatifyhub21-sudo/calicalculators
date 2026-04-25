@@ -1,8 +1,9 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import Navbar from '../components/Navbar'
+import SiteFooter from '../components/SiteFooter'
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: any) {
   return (
     <>
       <Head>
@@ -15,6 +16,8 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
 
       <Component {...pageProps} />
+
+      <SiteFooter />
     </>
   )
 }
