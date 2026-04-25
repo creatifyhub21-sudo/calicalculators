@@ -1,3 +1,4 @@
+import SiteFooter from '../components/SiteFooter';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import Head from 'next/head';
@@ -223,7 +224,9 @@ export default function Home() {
             </section>
           ))}
         </div>
-      </div>
+            </div>
+
+      <SiteFooter />
     </>
   );
 }
