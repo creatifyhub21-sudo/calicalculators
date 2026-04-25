@@ -1,16 +1,20 @@
-import SiteFooter from '../components/SiteFooter';
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
+import '@/styles/globals.css'
+import type { AppProps } from 'next/app'
+import Head from 'next/head'
 
-/**
- * Custom App component used by Next.js. It ensures that Tailwind CSS styles
- * are applied across all pages by importing the global stylesheet once.
- */
-function MyApp({ Component, pageProps }: AppProps) {
-  return (<>
-    <Component {...pageProps} />
-    <SiteFooter />
-  </>);
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      <Head>
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3011404436008275"
+          crossOrigin="anonymous"
+        ></script>
+      </Head>
+
+      <Component {...pageProps} />
+    </>
+  )
 }
-
-export default MyApp;
