@@ -19,7 +19,12 @@ export default function AutoLoanCalculator() {
   const [taxRate, setTaxRate] = useState('');
   const [annualRate, setAnnualRate] = useState('');
   const [years, setYears] = useState('');
-  const [result, setResult] = useState<{ financedAmount: number; monthlyPayment: number; totalPayment: number; totalInterest: number } | null>(null);
+  const [result, setResult] = useState(null as {
+  financedAmount: number;
+  monthlyPayment: number;
+  totalPayment: number;
+  totalInterest: number;
+} | null);
   const [error, setError] = useState('');
 
   const parsed = useMemo(() => ({
