@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://calicalculators.com/</loc>
-  </url>
+  <url><loc>https://calicalculators.com/</loc></url>
+  <url><loc>https://calicalculators.com/about</loc></url>
+  <url><loc>https://calicalculators.com/contact</loc></url>
+  <url><loc>https://calicalculators.com/privacy-policy</loc></url>
+  <url><loc>https://calicalculators.com/terms</loc></url>
 
-  <url>
-    <loc>https://calicalculators.com/bmi-calculator</loc>
-  </url>
-
-  <url>
-    <loc>https://calicalculators.com/age-calculator</loc>
-  </url>
-
-  <url>
-    <loc>https://calicalculators.com/percentage-calculator</loc>
-  </url>
+  <url><loc>https://calicalculators.com/age-calculator</loc></url>
+  <url><loc>https://calicalculators.com/auto-loan-calculator</loc></url>
+  <url><loc>https://calicalculators.com/average-calculator</loc></url>
+  <url><loc>https://calicalculators.com/basic-calculator</loc></url>
+  <url><loc>https://calicalculators.com/bmi-calculator</loc></url>
+  <url><loc>https://calicalculators.com/bmr-calculator</loc></url>
+  <url><loc>https://calicalculators.com/body-fat-calculator</loc></url>
+  <url><loc>https://calicalculators.com/calorie-calculator</loc></url>
+  <url><loc>https://calicalculators.com/compound-interest-calculator</loc></url>
+  <url><loc>https://calicalculators.com/conversion-calculator</loc></url>
+  <url><loc>https://calicalculators.com/credit-card-calculator</loc></url>
+  <url><loc>https://calicalculators.com/date-calculator</loc></url>
+  <url><loc>https://calicalculators.com/distance-calculator</loc></url>
+  <url><loc>https://calicalculators.com/mortgage-calculator</loc></url>
+  <url><loc>https://calicalculators.com/percentage-calculator</loc></url>
+  <url><loc>https://calicalculators.com/probability-calculator</loc></url>
+  <url><loc>https://calicalculators.com/protein-calculator</loc></url>
+  <url><loc>https://calicalculators.com/pythagorean-theorem-calculator</loc></url>
+  <url><loc>https://calicalculators.com/quadratic-formula-calculator</loc></url>
+  <url><loc>https://calicalculators.com/refinance-calculator</loc></url>
+  <url><loc>https://calicalculators.com/retirement-calculator</loc></url>
+  <url><loc>https://calicalculators.com/savings-calculator</loc></url>
+  <url><loc>https://calicalculators.com/scientific-calculator</loc></url>
+  <url><loc>https://calicalculators.com/slope-calculator</loc></url>
+  <url><loc>https://calicalculators.com/square-footage-calculator</loc></url>
+  <url><loc>https://calicalculators.com/standard-deviation-calculator</loc></url>
+  <url><loc>https://calicalculators.com/statistics-calculator</loc></url>
+  <url><loc>https://calicalculators.com/student-loan-calculator</loc></url>
+  <url><loc>https://calicalculators.com/tdee-calculator</loc></url>
+  <url><loc>https://calicalculators.com/time-calculator</loc></url>
+  <url><loc>https://calicalculators.com/time-duration-calculator</loc></url>
+  <url><loc>https://calicalculators.com/time-zone-calculator</loc></url>
+  <url><loc>https://calicalculators.com/tip-calculator</loc></url>
 
 </urlset>
