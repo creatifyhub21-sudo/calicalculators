@@ -18,11 +18,10 @@ export default function AmortizationCalculator() {
   const [principal, setPrincipal] = useState('');
   const [annualRate, setAnnualRate] = useState('');
   const [years, setYears] = useState('');
-  const [payment, setPayment] = useState<number | null>(null);
-  const [schedule, setSchedule] = useState<ReturnType<typeof amortizationSchedule>['schedule'] | null>(null);
+  const [payment, setPayment] = useState(null as number | null);
+  const [schedule, setSchedule] = useState(null as ReturnType<typeof amortizationSchedule>['schedule'] | null);
   const [error, setError] = useState('');
-  const [calcSteps, setCalcSteps] = useState<string[]>([]);
-
+  const [calcSteps, setCalcSteps] = useState([] as string[]);
   const summary = useMemo(() => {
     if (!schedule || payment === null) return null;
     const totalPaid = schedule.reduce((sum, row) => sum + row.payment, 0);
